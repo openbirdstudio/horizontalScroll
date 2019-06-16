@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+    <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+
+<style type="text/css">
+  @charset "utf-8";
+  html , body {
+    height:100%;
+    width:100%;
+    padding:0;
+    margin:0;
+    font-family: 微軟正黑體,Microsoft JhengHei,sans-serif;
+  }
+  #map{
+    height:100%;
+    width:100%;
+  }
+  .jobResultMobile{
+    z-index: 1000;
+    position: absolute;
+    bottom:0;
+    left:0;
+    background-color: rgba(0,0,0,0.5);
+    width:100%;
+    /*height: 50px;*/
+    /*padding: 5px;*/
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+  .resultCardMobile {
+    /*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);*/
+    transition: 0.3s;
+    width: 250px;
+    padding : 2px;
+    background-color: white;
+    /*float: left;*/
+    display: inline-block;
+    margin: 5px;
+  }
+
+  .resultCardMobile b,.resultCardMobile label{
+    text-overflow: ellipsis;
+    display:block;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .resultCardMobile:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+
+
+  .jobUpdateTimeMobile{
+    float:right;
+  }
+
+  .resultCardMobile div{
+    margin-bottom:5px;
+  }
+  .jobCard_title{
+    font-size:16px;
+    font-weight:700;
+    color:#1654b9;  
+  }
+  .jobCard_title:hover{
+      cursor: pointer;
+    color:#39c;
+  }
+  #btn{
+    font-size: 40px; 
+    background-color: red;
+    position: fixed;
+    z-index: 1000;
+    top: 5px;
+    left: 5px;
+  }
+</style>
+
+</head>
+
+<body>
+
+<div>
+  <button id="btn" onclick="createJobResult()"> 產生列表測試 </button>
+</div>
+
+<div id="map">
+  
+</div>
+
+<script type="text/javascript">
+    var Wikimedia = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png', {
+        attribution: '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>',
+        minZoom: 1,
+        maxZoom: 19
+    });
+    var layer = new L.StamenTileLayer("toner-lite");
+    map = new L.Map("map", {
+        center: new L.LatLng(25.054929, 121.559086),
+        zoom: 14,
+        controlAttribute:false
+    });
+    map.addLayer(Wikimedia);
+    //map.addLayer(layer);
+    //attri = L.control.attribution('&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>', {position:'topleft'}).addTo(map);
+    map.attributionControl.setPosition('bottomleft');
+    map.zoomControl.setPosition("bottomleft");
+
+    function createJobResult(){
+      let content = '<div class="resultCardMobile" onclick="flyToMarker(9)" id="marker9">        <div><label class="jobUpdateTimeMobile">6/03</label></div>    <div>      <span>        <a target="_blank" href="//www.104-dev.com.tw/job/4xoyc?jobsource=new_map">          <label><b class="jobCard_title">測試標題</b></label>        </a>      </span>    </div>    <div>      <label class="jobCompanyName">測試標題</label>    </div>    <div>     <label>00hon |EduEduEdu |ppd 31,000~32,000元      </label>    </div>    </div><div class="resultCardMobile" onclick="flyToMarker(8)" id="marker8">        <div><label class="jobUpdateTimeMobile">6/03</label></div>    <div>      <span>        <a target="_blank" href="//www.104-dev.com.tw/job/4xoyd?jobsource=new_map">          <label><b class="jobCard_title">測試標題</b></label>        </a>      </span>    </div>    <div>      <label class="jobCompanyName">測試標題</label>    </div>    <div>     <label>00hon |EduEduEdu |ppd 999,000元      </label>    </div>    </div><div class="resultCardMobile" onclick="flyToMarker(7)" id="marker7">        <div><label class="jobUpdateTimeMobile">6/03</label></div>    <div>      <span>        <a target="_blank" href="//www.104-dev.com.tw/job/4xoye?jobsource=new_map">          <label><b class="jobCard_title">jskladgjlssjgljsfdl</b></label>        </a>      </span>    </div>    <div>      <label class="jobCompanyName">測試標題</label>    </div>    <div>     <label>00hon |EduEduEdu |ppd      </label>    </div>    </div><div class="resultCardMobile" onclick="flyToMarker(6)" id="marker6">        <div><label class="jobUpdateTimeMobile">6/03</label></div>    <div>      <span>        <a target="_blank" href="//www.104-dev.com.tw/job/4xoyi?jobsource=new_map">          <label><b class="jobCard_title">jskladgjlssjgljsfdl</b></label>        </a>      </span>    </div>    <div>      <label class="jobCompanyName">測試標題</label>    </div>    <div>     <label>00hon |EduEdu |ahsk 150元/小時      </label>    </div>    </div><div class="resultCardMobile" onclick="flyToMarker(5)" id="marker5">        <div><label class="jobUpdateTimeMobile">6/03</label></div>    <div>      <span>        <a target="_blank" href="//www.104-dev.com.tw/job/4xoyk?jobsource=new_map">          <label><b class="jobCard_title">jskladgjlssjgljsfdl</b></label>        </a>      </span>    </div>    <div>      <label class="jobCompanyName">測試標題</label>    </div>    <div>     <label>00hon |EduEdu |ppd      </label>    </div>    </div><div class="resultCardMobile" onclick="flyToMarker(4)" id="marker4">        <div><label class="jobUpdateTimeMobile">6/03</label></div>    <div>      <span>        <a target="_blank" href="//www.104-dev.com.tw/job/4xp17?jobsource=new_map">          <label><b class="jobCard_title">jskladgjlssjgljsfdl</b></label>        </a>      </span>    </div>    <div>      <label class="jobCompanyName">測試標題</label>    </div>    <div>     <label>00hon |EduEdu |ppd 999,000元      </label>    </div>    </div>';
+      if( document.getElementById("jobResult") == null ){
+          var jobResultDiv = document.createElement("div");
+          jobResultDiv.setAttribute( "id" , "jobResult");
+          jobResultDiv.setAttribute( "class" , "jobResultMobile");
+          document.getElementById("map").appendChild(jobResultDiv);
+      }
+      document.getElementById("jobResult").innerHTML = content;
+
+    }
+</script>
+</body>
+</html>
