@@ -121,7 +121,8 @@
           var jobResultDiv = document.createElement("div");
           jobResultDiv.setAttribute( "id" , "jobResult");
           jobResultDiv.setAttribute( "class" , "jobResultMobile");
-          document.getElementById("map").appendChild(jobResultDiv);
+          //document.getElementById("map").appendChild(jobResultDiv);
+	      document.getElementsByTagName("body")[0].appendChild(jobResultDiv);
       }
       document.getElementById("jobResult").innerHTML = content;
 
